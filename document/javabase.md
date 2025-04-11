@@ -1,3 +1,113 @@
+# java
+
+## 字体
+
+**Hello,world**
+
+*Hello,world*
+
+***Hello,world***
+
+~~Hello,world~~
+
+## 引用
+
+> 小米su7又出问题了. 
+
+## 分割线
+
+---
+
+***
+
+## 图片
+
+![春游](E:\迅雷下载\IMG_20250331_145556.jpg)
+
+
+
+
+
+[![DSC0015.jpg](https://i.postimg.cc/W1DCd5yJ/DSC0015.jpg)](https://postimg.cc/VJ8DTWmY)
+
+## 超链接
+
+[点击到GitHub]([Hexo](https://billywangyu.github.io/))
+
+## 列表
+
+1. A
+2. B
+3. C
+4. D
+
+- A
+- B
+- C
+- D
+
+## 表格
+
+| 序号 | 目的地   | 里程(公里) | 费用 | 备注     |
+| ---- | -------- | ---------- | ---- | -------- |
+| 01   | 江西婺源 | 213        | 500  | 上午出发 |
+
+
+
+## 代码
+
+`hello world`
+
+```java
+from   
+```
+
+```pyt
+import db from db
+```
+
+
+
+## 卸载JDK
+
+1. 删除java的安装目录
+2. 删除JAVA_HOME
+3. 删除path下的关于Java的目录
+4. java -version
+
+## 安装JDK
+
+1. 添加环境变量
+2. 新建系统变量JAVA_HOME,变量值E:\code\java\jdk1.8
+3. 新建path变量,%JAVA_HOME%\bin,%JAVA_HOME%\jre\bin
+4. win10 默认安装
+
+## HelloWorld
+
+1. 新建一个java文件
+   - 文件后缀为.java
+   - Hello.java
+
+2. 编写代码
+
+```java
+public class Hello{
+	public static void main(String[] args){
+		System.out.print("Hello,World");
+	}
+}
+```
+
+3. 编译javac Java文件,会生成一个class文件
+4. 运行class文件, java class文件
+
+## 可能出现的问题
+
+1. 注意每个单词的大小写
+2. 尽量使用英文
+3. 文件名和类名必须一至,并且首字母大写
+4. 符合
+
 ## 创建Hello
 
 1. 新建项目，创建后src目录下建立.class文件
@@ -231,6 +341,24 @@ public class Demo09 {
 - 方法名:首字母小写和驼峰原则:run(),runRun()
 
 ## 包机制
+
+- 为了更好的组织类,Java提供了包机制,用于区别类名的命名空间.
+
+- 包语句的语法规格为
+
+  ```java
+      package pkg1[. pkg2[. pkg3...]];
+  ```
+
+- 一般利用公司域名倒置作为 包名;
+
+- 为了能够使用某一个包的成员,我们需要在java程序中明确导入该包,使用import 语句实现.
+
+```java
+import package1[.package2].(classname|*);
+//导入包下所有的类  使用通配符
+import com.kuang.base.*;
+```
 
 ----------------------------------------------------------------------------
 

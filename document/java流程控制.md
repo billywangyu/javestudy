@@ -426,11 +426,89 @@ public class Demo02 {
     }
     ```
 
-  - 
-
 ## break & continue
 
+- break (中断,跳出当前循环)
+
+  ```java
+  package net.cycle;
+  public class break_structure {
+      public static void main(String[] args) {
+          int i=0;
+          while (i<=100){
+              i++;
+              System.out.println(i);
+              if(i==30){
+                  break;
+              }
+          }
+          System.out.println("vvv");
+      }
+  }
+  ```
+
+- continue (跳过当前条件,继续循环)
+
+  ```java
+  package net.cycle;
+  public class continue_structure {
+      public static void main(String[] args) {
+          int i=0;
+          while (i<100){
+              i++;
+              if(i%10==0){
+                  System.out.println("");
+                  continue;
+              }
+              System.out.print(i);
+          }
+      }
+  }
+  ```
+
+- goto
+
+  ```java
+  package net.cycle;
+  public class goto_structure {
+      public static void main(String[] args) {
+          outer: for (int i=100;i<=150;i++){
+              for (int j=2;j<= Math.sqrt(i);j++){
+                  if(i%j==0){
+                      continue outer;
+                  }
+             }
+              System.out.print(i+" = ");
+          }
+      }
+  }
+  ```
+
 ## 练习
+
+- 打印三角形
+
+  ```java
+  package net.cycle;
+  public class test {
+      public static void main(String[] args) {
+          for (int i = 1; i <= 5; i++) {
+              for (int j = 5; j >= i; j--) {
+                  System.out.print(" ");
+              }
+              for (int j = 1; j <= i; j++) {
+                  System.out.print("*");
+              }
+              for (int j = 1; j < i; j++) {
+                  System.out.print("*");
+              }
+              System.out.println();
+          }
+      }
+  }
+  ```
+
+  
 
 
 
