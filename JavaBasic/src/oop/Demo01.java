@@ -15,10 +15,12 @@ public class Demo01 {
         study.setAge(230);//不合法的赋值
         System.out.println(study.getName());
         System.out.println(study.getAge());
+        //继承测试
         Students students = new Students();
 
         students.say();
         System.out.println(students.age);
+        students.test("youtuber");
 
     }
 
