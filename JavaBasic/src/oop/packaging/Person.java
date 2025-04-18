@@ -1,7 +1,7 @@
 package oop.packaging;
 
 public class Person {
-    String name;
+    protected String name= "bilibili";
     public int  age =100;
     char sex;
 
