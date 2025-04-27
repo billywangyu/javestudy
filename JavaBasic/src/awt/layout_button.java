@@ -1,6 +1,8 @@
 package awt;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class layout_button {
     public static void main(String[] args) {
@@ -30,7 +32,14 @@ public class layout_button {
         panel3.add(panel4,BorderLayout.CENTER);
         frame.add(panel1);
         frame.add(panel3);
-//        frame.pack();
+        frame.pack();
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+
 
 
 
