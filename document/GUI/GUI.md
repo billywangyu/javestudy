@@ -202,6 +202,348 @@ public class layout {
 }
 ```
 
+### 布局应用 ***按钮布局***
+
+```java
+package awt;
+
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class layout_button {
+    public static void main(String[] args) {
+        final Frame frame = new Frame();
+        frame.setBackground(Color.cyan);
+        frame.setBounds(200,200,600,300);
+        frame.setVisible(true);
+        frame.setLayout(new GridLayout(2,1));
+          // 4 panel
+        final Panel panel1 = new Panel(new BorderLayout());
+        final Panel panel2 = new Panel(new GridLayout(2,1));
+        final Panel panel3 = new Panel(new BorderLayout());
+        final Panel panel4 = new Panel(new GridLayout(2,2));
+         // up
+        panel1.add(new Button("a"),BorderLayout.WEST);
+        panel1.add(new Button("b"),BorderLayout.EAST);
+        panel2.add(new Button("c"));
+        panel2.add(new Button("d"));
+        panel1.add(panel2,BorderLayout.CENTER);
+
+        //down
+        panel3.add(new Button("f"),BorderLayout.WEST);
+        panel3.add(new Button("g"),BorderLayout.EAST);
+        for (int i = 1; i < 5; i++) {
+            panel4.add(new Button("l"+i));
+        }
+        panel3.add(panel4,BorderLayout.CENTER);
+        frame.add(panel1);
+        frame.add(panel3);
+        frame.pack();
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+    }
+}
+```
+
+### 事件 event
+
+```java
+package awt;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class ActionEvent {
+    public static void main(String[] args) {
+        final Frame frame = new Frame("actionevent");
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+            }
+        });
+        final Button button = new Button("aaa");
+        // 定义一个事件的类,调用他 继承至ActionListener
+        final MyActionListener myActionListener = new MyActionListener();
+        button.addActionListener(myActionListener);
+        frame.add(button,BorderLayout.WEST);
+        frame.setBounds(200,200,300,500);
+        frame.setVisible(true);
+        windowClose(frame);
+
+    }
+    //关闭窗体事件的方法
+    public static void windowClose(Frame frame){
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+    }
+}
+//继承接口文件  生成类 用于添加按钮可调用的方法
+class MyActionListener implements ActionListener{
+    @Override
+    public void actionPerformed(java.awt.event.ActionEvent e) {
+        System.out.println("hello");
+    }
+}
+```
+
+### 输入框
+
+```java
+package awt;
+
+import javafx.geometry.Bounds;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Text_field {
+    public static void main(String[] args) {
+        //启动
+        new Mytext();
+    }
+}
+class Mytext extends Frame{
+    public Mytext(){
+        // 明确使用 java.awt.TextField
+        TextField textField = new TextField("");
+
+        // 设置布局（默认BorderLayout）
+        add(textField);
+
+        // 设置窗口属性
+        setBounds(200,200,300,500);
+        setVisible(true);
+        final Myfield myfield = new Myfield();
+
+        textField.addActionListener(myfield);
+        textField.setEchoChar('*');
+
+    }
+}
+class Myfield implements ActionListener{
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        final TextField source = (TextField) e.getSource();
+        System.out.println(source.getText());
+        source.setText("");
+    }
+}
+```
+
+### 简易计算器 ***组合大于继承***
+
+- oop原则:组合,大于继承!
+
+```java
+class A extends B{
+    
+}
+class A{
+    public B b;
+}
+```
+
+```java
+package awt;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TestCalc {
+    public static void main(String[] args) {
+        new MyCalc();
+    }
+}
+//计算器界面
+class MyCalc extends Frame{
+    public MyCalc() throws HeadlessException {
+        //3个文本框
+        final TextField textField1 = new TextField(10);//字符数
+        final TextField textField2 = new TextField(10);
+        final TextField textField3 = new TextField(20);
+        //一个按钮
+        final Button button = new Button("sum");
+        //两个标签
+        final Label label1 = new Label("+");
+        final Label label2 = new Label("=");
+
+        setLayout(new FlowLayout());
+        add(textField1);
+        add(label1);
+        add(textField2);
+        add(label2);
+        add(button);
+        add(textField3);
+        setBounds(200,200,300,500);
+        setVisible(true);
+
+        button.addActionListener(new MyListen(textField1,textField2,textField3));
+    }
+}
+//事件监听
+class MyListen implements ActionListener {
+    //获取三个变量
+    private TextField textField1,textField2,textField3;
+    public MyListen(TextField textField1,TextField textField2,TextField textField3) {
+        this.textField1=textField1;
+        this.textField2=textField2;
+        this.textField3=textField3;
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //获得加数和被加数
+        final int text1 = Integer.parseInt(textField1.getText());//强制转换
+        final int text2 = Integer.parseInt(textField2.getText());
+        /* 将这个值 加法运算 后放到最后一个框 */
+        textField3.setText(String.valueOf(text1+text2));//强制转换
+        textField1.setText("");
+        textField2.setText("");
+    }
+}
+```
+
+- 使用获取类--面向对象的思想
+
+```java
+package awt;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TestCalc {
+    public static void main(String[] args) {
+        new MyCalc();
+    }
+}
+//计算器界面
+class MyCalc extends Frame{
+    //提取属性
+    TextField textField1,textField2,textField3;
+    //提取方法
+    public MyCalc() throws HeadlessException {
+        //3个文本框
+        textField1 = new TextField(10);//最大字符数
+        textField2 = new TextField(10);
+        textField3 = new TextField(20);
+        //一个按钮
+        final Button button = new Button("sum");
+        //两个标签
+        final Label label1 = new Label("+");
+        final Label label2 = new Label("=");
+
+        setLayout(new FlowLayout());
+        add(textField1);
+        add(label1);
+        add(textField2);
+        add(label2);
+        add(button);
+        add(textField3);
+        setBounds(200,200,300,500);
+        setVisible(true);
+
+        button.addActionListener(new MyListen(this));//添加自己
+    }
+}
+//事件监听
+class MyListen implements ActionListener {
+    //获取计算器这个对象,在一个类中组合另外一个类
+    MyCalc myCalc =null;
+
+     public MyListen(MyCalc myCalc) {
+         this.myCalc=myCalc;
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //获得加数和被加数
+        final int text1 = Integer.parseInt(myCalc.textField1.getText());
+        final int text2 = Integer.parseInt(myCalc.textField2.getText());
+//        final int text1 = Integer.parseInt(textField1.getText());//强制转换
+//        final int text2 = Integer.parseInt(textField2.getText());
+        /* 将这个值 加法运算 后放到最后一个框 */
+        myCalc.textField3.setText(String.valueOf(text1+text2));//强制转换
+        myCalc.textField1.setText("");
+        myCalc.textField2.setText("");
+    }
+}
+```
+
+- 使用内部类---简化代码量
+
+```java
+package awt;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TestCalc {
+    public static void main(String[] args) {
+        new MyCalc();
+    }
+}
+//计算器界面
+class MyCalc extends Frame{
+    //提取属性
+    TextField textField1,textField2,textField3;
+    //提取方法
+    public MyCalc() throws HeadlessException {
+        //3个文本框
+        textField1 = new TextField(10);//最大字符数
+        textField2 = new TextField(10);
+        textField3 = new TextField(20);
+        //一个按钮
+        final Button button = new Button("sum");
+        //两个标签
+        final Label label1 = new Label("+");
+        final Label label2 = new Label("=");
+
+        setLayout(new FlowLayout());
+        add(textField1);
+        add(label1);
+        add(textField2);
+        add(label2);
+        add(button);
+        add(textField3);
+        setBounds(200,200,300,500);
+        setVisible(true);
+
+        button.addActionListener(new MyListen());//添加自己
+    }
+    //事件监听   使用内部类--可以直接访问外部类的属性和方法
+    private class MyListen implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //获得加数和被加数
+            final int text1 = Integer.parseInt(textField1.getText());
+            final int text2 = Integer.parseInt(textField2.getText());
+            /* 将这个值 加法运算 后放到最后一个框 */
+            textField3.setText(String.valueOf(text1+text2));//强制转换
+            textField1.setText("");
+            textField2.setText("");
+        }
+    }
+}
+
+```
+
+
+
 ## Swing
 
 
