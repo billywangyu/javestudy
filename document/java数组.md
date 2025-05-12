@@ -181,7 +181,7 @@ public class Demo01 {
   }
   ```
 
-## Arrays 类
+## Arrays 工具类
 
 - java.util.Arrays
 
